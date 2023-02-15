@@ -45,14 +45,14 @@ public class SocialMediaController {
             String message_id = ctx.pathParam("message_id");
             deleteMessageHandler(ctx, Integer.parseInt(message_id));
         });
-        /*app.patch("/messages/{message_id}", ctx ->{
+        app.patch("/messages/{message_id}", ctx ->{
             String message_id = ctx.pathParam("message_id");
             updateMessageHandler(ctx, Integer.parseInt(message_id));
         });
         app.get("/accounts/{account_id}/messages", ctx ->{
             String account_id = ctx.pathParam("account_id");
             getUserMsgsHandler(ctx, Integer.parseInt(account_id));
-        });*/
+        });
         return app;
     }
 
@@ -125,12 +125,35 @@ public class SocialMediaController {
 
     /**
      * delete message by id
-     * TODO: find out if returns anything
      */
     private void deleteMessageHandler(Context context, int mid){
         messageService.deleteMessage(mid);
-
-    }
-
-
+    }//deleteMessageHandler
+    
+    /**
+     * handler to update a message
+     */
+    private void updateMessageHandler(Context context, int mid) throws JsonProcessingException{
+        ObjectMapper om = new ObjectMapper();
+        Message message = om.readValue(context.body(), Message.class);
+        Message updatedMsg = messageService.updateMessage(mid, message);
+        
+        //check if message exists, text is not blank and text is no longer than 255 characters
+        if((updatedMsg.getMessage_id() != null) && (message.getMessage_text() != " ") && (message.getMessage_text().length() < 255)){
+            context.json(om.readValueAsString(updatedMsg));
+        }
+        else{
+            context.status(400);
+        }
+    }//updateMessageHandler
+    
+    /**
+     * handler for retreiving all messages from user
+     */
+    private void getUserMsgsHandler(Context context, int aid){
+        List<Message> userMessages = messageService.getAllUserMessages(aid);
+        context.json(userMessages);
+    }//getUserMsgsHandler
+        
 }
+
