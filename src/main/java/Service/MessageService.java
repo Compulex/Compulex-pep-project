@@ -50,5 +50,23 @@ public class MessageService {
         deleteMessage(message_id);
     }
 
+    /**
+     * update message 
+     * @param id message
+     * @param Message
+     
+     */
+    public Message updateMessage(int message_id, Message message){
+        messageDAO.updateMessage(message_id, message);
+    }
+    
+    /**
+     * get user messages by account id
+     * @param account id
+     * @return messages List
+     */
+    public List<Message> getAllUserMessages(int account_id){
+        return messageDAO.getAllMessagesFromUser(account_id);
+    }
     
 }
