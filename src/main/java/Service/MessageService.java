@@ -47,7 +47,7 @@ public class MessageService {
      * @param id
      */
     public void deleteMessage(int message_id){
-        deleteMessage(message_id);
+        messageDAO.deleteMessage(message_id);
     }
 
     /**
@@ -56,7 +56,7 @@ public class MessageService {
      * @param Message
      
      */
-    public Message updateMessage(int message_id, Message message){
+    public void updateMessage(int message_id, Message message){
         messageDAO.updateMessage(message_id, message);
     }
     
