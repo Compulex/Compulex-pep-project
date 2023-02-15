@@ -39,22 +39,34 @@ public class SocialMediaController {
      */
     public Javalin startAPI() {
         Javalin app = Javalin.create();
-        app.post("/register", this::registerHandler);
-        app.post("/login", this::loginHandler);
-        app.post("/messages", this::newMessageHandler);
-        app.get("/messages", this::getAllMessagesHandler);
+        
+        app.post("/register", this::registerHandler); //req 1
+        
+        app.post("/login", this::loginHandler); //req 2
+        
+        app.post("/messages", this::newMessageHandler); //req 3
+        
+        app.get("/messages", this::getAllMessagesHandler); //req 4
+        
+        //req 5
         app.get("/messages/{message_id}", ctx ->{
             String message_id = ctx.pathParam("message_id");
             getMessageByIdHandler(ctx, Integer.parseInt(message_id));
         });
+        
+        //req 6
         app.delete("/messages/{message_id}", ctx ->{
             String message_id = ctx.pathParam("message_id");
-            deleteMessageHandler(ctx, Integer.parseInt(message_id));
+            deleteMessageHandler(Integer.parseInt(message_id));
         });
+        
+        //req 7
         app.patch("/messages/{message_id}", ctx ->{
             String message_id = ctx.pathParam("message_id");
             updateMessageHandler(ctx, Integer.parseInt(message_id));
         });
+        
+        //req 8
         app.get("/accounts/{account_id}/messages", ctx ->{
             String account_id = ctx.pathParam("account_id");
             getUserMsgsHandler(ctx, Integer.parseInt(account_id));
@@ -133,7 +145,7 @@ public class SocialMediaController {
     /**
      * delete message by id
      */
-    private void deleteMessageHandler(Context context, int mid){
+    private void deleteMessageHandler(int mid){
         messageService.deleteMessage(mid);
     }//deleteMessageHandler
     
