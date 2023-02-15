@@ -18,12 +18,18 @@ import io.javalin.http.Context;
  * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
  */
 public class SocialMediaController {
+    Account accountEmpty;
+    Message messageEmpty;
     AccountService accountService;
     MessageService messageService;
 
     public SocialMediaController(){
         this.accountService = new AccountService();
         this.messageService = new MessageService();
+        
+        //empty objects
+        this.accountEmpty = new Account();
+        this.messageEmpty = new Message();
     }//constructor
 
     /**
@@ -64,7 +70,8 @@ public class SocialMediaController {
         ObjectMapper om = new ObjectMapper();
         Account account = om.readValue(context.body(), Account.class);
         Account addedAcct = accountService.addAccount(account);
-        if((addedAcct.getUsername() == null) && !(addedAcct.getUsername().trim().isEmpty()) && (addedAcct.getPassword().length() > 4)){
+        
+        if((addedAcct.getUsername() == null) && !(addedAcct.equals(accountEmpty)) && (addedAcct.getPassword().length() > 4)){
             context.json(om.writeValueAsString(addedAcct));
         }
         else{
@@ -99,7 +106,7 @@ public class SocialMediaController {
         Message addedMsg = messageService.addMessage(message);
 
         //check if message blank or too long
-        if((message.getMessage_text() != " ") && (message.getMessage_text().length() < 255)){
+        if(!(addedMsg.equals(messageEmpty)) && (addedMsg.getMessage_text().length() < 255)){
             context.json(om.writeValueAsString(addedMsg));
         }
         else{
@@ -139,7 +146,7 @@ public class SocialMediaController {
         Message updatedMsg = messageService.updateMessage(mid, message);
         
         //check if message exists, text is not blank and text is no longer than 255 characters
-        if((updatedMsg.getMessage_id() != null) && (message.getMessage_text() != " ") && (message.getMessage_text().length() < 255)){
+        if((updatedMsg.getMessage_id() != null) && !(updatedMsg.equals(messageEmpty)) && (updatedMsg.getMessage_text().length() < 255)){
             context.json(om.readValueAsString(updatedMsg));
         }
         else{
