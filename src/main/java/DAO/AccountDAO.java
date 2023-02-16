@@ -66,4 +66,33 @@ public class AccountDAO{
         }
         return null;
     }//getAccountById
+
+    /**
+     * check for duplicate usernames, if count for username is one return true
+     * @param username
+     * @return boolean
+     */
+    public Account getAccountByUsername(String username){
+        Connection connection = ConnectionUtil.getConnection();
+        try{
+            //sql statement
+            String sql = "select * from account where username = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            //prepared statement setString
+            preparedStatement.setString(1, username);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                Account account = new Account(rs.getInt("account_id"),
+                        rs.getString("username"),
+                        rs.getString("password"));
+                return account;
+            }
+        }
+        catch(SQLException se){
+            System.out.println(se.getMessage());
+        }
+        return null;
+    }
 }//end class

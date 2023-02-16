@@ -84,7 +84,7 @@ public class SocialMediaController {
         Account addedAcct = accountService.addAccount(account);
 
         //username can't be blank, there's no existing account, password is more than 4chars length, no username duplicates
-        if(!(addedAcct.getUsername().equals("")) && !(addedAcct.equals(accountEmpty)) 
+        if(!(addedAcct.equals(null)) && !(addedAcct.getUsername().equals("")) && !(addedAcct.equals(accountEmpty)) 
                 && (addedAcct.getPassword().length() > 4)){
             context.json(om.writeValueAsString(addedAcct));
         }

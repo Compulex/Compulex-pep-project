@@ -15,12 +15,19 @@ public class AccountService {
     }//param constructor
 
     /**
-     * insert a new account
+     * insert a new account, make sure another account doesn't have same username
      * @param account
      * @return Account 
      */
     public Account addAccount(Account account){
-        return accountDAO.insertAccount(account);
+        Account existingAcct = accountDAO.getAccountByUsername(account.getUsername());
+        //account with given username is not found
+        if(existingAcct == null){
+            return accountDAO.insertAccount(account);
+        }
+        else{
+            return null;
+        }
     }//addAccount
 
     /**
@@ -31,5 +38,6 @@ public class AccountService {
     public Account getAccountById(int account_id){
         return accountDAO.getAccountById(account_id);
     }
+
 
 }//end class
