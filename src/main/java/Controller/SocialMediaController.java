@@ -82,8 +82,10 @@ public class SocialMediaController {
         ObjectMapper om = new ObjectMapper();
         Account account = om.readValue(context.body(), Account.class);
         Account addedAcct = accountService.addAccount(account);
-        
-        if((addedAcct.getUsername() == null) && !(addedAcct.equals(accountEmpty)) && (addedAcct.getPassword().length() > 4)){
+
+        //username can't be blank, there's no existing account, password is more than 4chars length, no username duplicates
+        if(!(addedAcct.getUsername().equals("")) && !(addedAcct.equals(accountEmpty)) 
+                && (addedAcct.getPassword().length() > 4)){
             context.json(om.writeValueAsString(addedAcct));
         }
         else{
@@ -100,7 +102,7 @@ public class SocialMediaController {
         Account account = om.readValue(context.body(), Account.class);
         Account checkAcct = accountService.addAccount(account);
         
-        if(checkAcct.getUsername() != null){
+        if(checkAcct.getUsername() != null && (checkAcct.equals(accountEmpty))){
             context.json(om.writeValueAsString(checkAcct));
         }
         else{
@@ -116,9 +118,10 @@ public class SocialMediaController {
         ObjectMapper om = new ObjectMapper();
         Message message = om.readValue(context.body(), Message.class);
         Message addedMsg = messageService.addMessage(message);
+        Account account = accountService.getAccountById(addedMsg.getPosted_by());
 
-        //check if message blank or too long
-        if(!(addedMsg.equals(messageEmpty)) && (addedMsg.getMessage_text().length() < 255)){
+        //check if message blank, too long, check if account exist 
+        if(!(addedMsg.equals(messageEmpty)) && (addedMsg.getMessage_text().length() < 255) && !(account == null)){
             context.json(om.writeValueAsString(addedMsg));
         }
         else{

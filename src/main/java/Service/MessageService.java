@@ -56,8 +56,9 @@ public class MessageService {
      * @param Message
      
      */
-    public void updateMessage(int message_id, Message message){
+    public Message updateMessage(int message_id, Message message){
         messageDAO.updateMessage(message_id, message);
+        return message;
     }
     
     /**

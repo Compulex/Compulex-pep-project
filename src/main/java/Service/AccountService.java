@@ -23,4 +23,13 @@ public class AccountService {
         return accountDAO.insertAccount(account);
     }//addAccount
 
+    /**
+     * get account by id
+     * @param account id
+     * @return account
+     */
+    public Account getAccountById(int account_id){
+        return accountDAO.getAccountById(account_id);
+    }
+
 }//end class
