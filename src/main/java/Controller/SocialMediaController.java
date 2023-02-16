@@ -19,6 +19,7 @@ import io.javalin.http.Context;
  */
 public class SocialMediaController {
     Account accountEmpty;
+    Account newAccount;
     Message messageEmpty;
     AccountService accountService;
     MessageService messageService;
@@ -83,15 +84,28 @@ public class SocialMediaController {
         Account account = om.readValue(context.body(), Account.class);
         Account addedAcct = accountService.addAccount(account);
 
-        //username can't be blank, there's no existing account, password is more than 4chars length, no username duplicates
-        if(!(addedAcct.equals(null)) && !(addedAcct.getUsername().equals("")) && !(addedAcct.equals(accountEmpty)) 
-                && (addedAcct.getPassword().length() > 4)){
-            context.json(om.writeValueAsString(addedAcct));
+        //there's no existing account, no username duplicates
+        if(addedAcct == null){
+            context.status(400);
         }
         else{
-           context.status(400);
-        }
+            newAccount = addedAcct; //for login
 
+            //username can't be blank
+            if(addedAcct.getUsername().equals("")){
+                context.status(400);
+            }
+            if(addedAcct.equals(accountEmpty)){
+                context.status(400);
+            }
+            //password has to be more than 4chars length
+            if(addedAcct.getPassword().length() < 4){
+                context.status(400);
+            }
+            else{
+                context.json(om.writeValueAsString(addedAcct));
+            }
+        }
     }//registerHandler
 
     /**
@@ -102,11 +116,24 @@ public class SocialMediaController {
         Account account = om.readValue(context.body(), Account.class);
         Account checkAcct = accountService.addAccount(account);
         
-        if(checkAcct.getUsername() != null && (checkAcct.equals(accountEmpty))){
-            context.json(om.writeValueAsString(checkAcct));
+        if(checkAcct == null){
+            context.status(401);
         }
         else{
-            context.status(401);
+            if(checkAcct.equals(accountEmpty)){
+                context.json(om.writeValueAsString(checkAcct));
+            }
+            if(checkAcct.getUsername() != null){
+                context.status(401);
+            }
+            //register account THEN login 
+            if(newAccount != null){
+                context.json(om.writeValueAsString(newAccount));
+            }
+            /*else{
+                context.json(om.writeValueAsString(checkAcct));
+                //context.status(401);
+            }*/
         }
          
     }//loginHandler
@@ -170,11 +197,21 @@ public class SocialMediaController {
         Message updatedMsg = messageService.updateMessage(mid, message);
         
         //check if message exists, text is not blank and text is no longer than 255 characters
-        if((updatedMsg.getMessage_id() != null) && !(updatedMsg.equals(messageEmpty)) && (updatedMsg.getMessage_text().length() < 255)){
-            context.json(om.readValueAsString(updatedMsg));
+        if(updatedMsg == null){
+            context.status(400);
         }
         else{
-            context.status(400);
+            if(updatedMsg.equals(messageEmpty)){
+                context.status(400);
+            }
+            //message can't be blank 
+            if(updatedMsg.getMessage_text().equals("")){
+                context.status(400);
+            }
+            //message text must be under 255 chars
+            if(updatedMsg.getMessage_text().length() < 255){ 
+                context.json(om.writeValueAsString(updatedMsg));
+            }
         }
     }//updateMessageHandler
     

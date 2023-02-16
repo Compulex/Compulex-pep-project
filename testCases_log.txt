@@ -25,8 +25,8 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running AuthIntegrationTest
-[ERROR] Tests run: 7, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 8.675 s <<< FAILURE! - in AuthIntegrationTest
-[ERROR] AuthIntegrationTest.postRegisterThenPostIncorrectLoginTest  Time elapsed: 2.461 s  <<< FAILURE!
+[ERROR] Tests run: 7, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 9.928 s <<< FAILURE! - in AuthIntegrationTest
+[ERROR] AuthIntegrationTest.postRegisterThenPostIncorrectLoginTest  Time elapsed: 3.572 s  <<< FAILURE!
 java.lang.AssertionError: expected:<401> but was:<500>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -75,7 +75,7 @@ java.lang.AssertionError: expected:<401> but was:<500>
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] AuthIntegrationTest.postRegisterDuplicateUsernameTest  Time elapsed: 1.042 s  <<< FAILURE!
+[ERROR] AuthIntegrationTest.postRegisterDuplicateUsernameTest  Time elapsed: 1.077 s  <<< FAILURE!
 java.lang.AssertionError: expected:<400> but was:<500>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -124,7 +124,7 @@ java.lang.AssertionError: expected:<400> but was:<500>
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] AuthIntegrationTest.postRegisterThenPostLoginTest  Time elapsed: 1.039 s  <<< FAILURE!
+[ERROR] AuthIntegrationTest.postRegisterThenPostLoginTest  Time elapsed: 1.048 s  <<< FAILURE!
 java.lang.AssertionError: expected:<200> but was:<500>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -178,8 +178,8 @@ Referential integrity constraint violation: "CONSTRAINT_63: PUBLIC.MESSAGE FOREI
 insert into message(posted_by, message_text, time_posted_epoch) values(?, ?, ?) [23506-214]
 Value too long for column "MESSAGE_TEXT CHARACTER VARYING(255)": "'Over 255 characters                 Over 255 characters Over 255 characters Ove... (383)"; SQL statement:
 insert into message(posted_by, message_text, time_posted_epoch) values(?, ?, ?) [22001-214]
-[ERROR] Tests run: 20, Failures: 5, Errors: 2, Skipped: 0, Time elapsed: 20.775 s <<< FAILURE! - in MessagingIntegrationTest
-[ERROR] MessagingIntegrationTest.patchMessageTest  Time elapsed: 1.052 s  <<< FAILURE!
+[ERROR] Tests run: 20, Failures: 5, Errors: 2, Skipped: 0, Time elapsed: 20.774 s <<< FAILURE! - in MessagingIntegrationTest
+[ERROR] MessagingIntegrationTest.patchMessageTest  Time elapsed: 1.046 s  <<< FAILURE!
 java.lang.AssertionError: expected:<200> but was:<500>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -228,7 +228,7 @@ java.lang.AssertionError: expected:<200> but was:<500>
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.deleteMessageTest  Time elapsed: 1.044 s  <<< ERROR!
+[ERROR] MessagingIntegrationTest.deleteMessageTest  Time elapsed: 1.081 s  <<< ERROR!
 com.fasterxml.jackson.databind.exc.MismatchedInputException: 
 No content to map due to end-of-input
  at [Source: (String)""; line: 1, column: 0]
@@ -280,7 +280,7 @@ No content to map due to end-of-input
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.getMessageAfterPatchTest  Time elapsed: 1.042 s  <<< FAILURE!
+[ERROR] MessagingIntegrationTest.getMessageAfterPatchTest  Time elapsed: 1.044 s  <<< FAILURE!
 java.lang.AssertionError: expected:<200> but was:<500>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -330,7 +330,7 @@ java.lang.AssertionError: expected:<200> but was:<500>
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.patchMessageTooLongTest  Time elapsed: 1.043 s  <<< FAILURE!
+[ERROR] MessagingIntegrationTest.patchMessageTooLongTest  Time elapsed: 1.038 s  <<< FAILURE!
 java.lang.AssertionError: expected:<400> but was:<500>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -379,7 +379,7 @@ java.lang.AssertionError: expected:<400> but was:<500>
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.deletedMessageShouldNotExistTest  Time elapsed: 1.04 s  <<< ERROR!
+[ERROR] MessagingIntegrationTest.deletedMessageShouldNotExistTest  Time elapsed: 1.042 s  <<< ERROR!
 com.fasterxml.jackson.databind.exc.MismatchedInputException: 
 No content to map due to end-of-input
  at [Source: (String)""; line: 1, column: 0]
@@ -432,7 +432,7 @@ No content to map due to end-of-input
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.patchMessageBlankTest  Time elapsed: 1.036 s  <<< FAILURE!
+[ERROR] MessagingIntegrationTest.patchMessageBlankTest  Time elapsed: 1.04 s  <<< FAILURE!
 java.lang.AssertionError: expected:<400> but was:<500>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -481,7 +481,7 @@ java.lang.AssertionError: expected:<400> but was:<500>
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:595)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:581)
 
-[ERROR] MessagingIntegrationTest.patchMessageNonExistentMessageTest  Time elapsed: 1.03 s  <<< FAILURE!
+[ERROR] MessagingIntegrationTest.patchMessageNonExistentMessageTest  Time elapsed: 1.022 s  <<< FAILURE!
 java.lang.AssertionError: expected:<400> but was:<500>
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.failNotEquals(Assert.java:835)
@@ -553,8 +553,8 @@ java.lang.AssertionError: expected:<400> but was:<500>
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  34.271 s
-[INFO] Finished at: 2023-02-16T03:34:36Z
+[INFO] Total time:  39.133 s
+[INFO] Finished at: 2023-02-16T03:40:25Z
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M7:test (default-test) on project Challenges: There are test failures.
 [ERROR] 
