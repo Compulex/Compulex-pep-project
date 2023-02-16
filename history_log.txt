@@ -1,7 +1,7 @@
-commit e4b9933040e898ecbb63aa95846c242f0b203eb9
+commit d311927f4fa970568793964b4391cf7ab817918e
 Author: Alexa Lewis <alexalewis2013@afscholars.org>
-Date:   Thu Feb 16 01:47:08 2023 +0000
+Date:   Thu Feb 16 02:47:01 2023 +0000
 
-    register and message test cases
+    attempt test for username duplicates
 
- 6 files changed, 106 insertions(+), 9 deletions(-)
+ 5 files changed, 939 insertions(+), 38 deletions(-)
