@@ -119,20 +119,22 @@ public class SocialMediaController {
             ObjectMapper om = new ObjectMapper();
             Message message = om.readValue(context.body(), Message.class);
             Message addedMsg = messageService.addMessage(message);
-            Account account = accountService.getAccountById(addedMsg.getPosted_by());
 
-            if(account.equals(null)){ //no account
+            if(addedMsg == null){
                 context.status(400);
-            }
-            else if(addedMsg.getMessage_text().length() > 255){ //message too long
-                context.status(400);
-            }
-            //check if message blank 
-            if(!(addedMsg.equals(messageEmpty)) && !(addedMsg.getMessage_text().equals(""))){
-                    context.json(om.writeValueAsString(addedMsg));
             }
             else{
-                context.status(400);
+                //message too long
+                if(addedMsg.getMessage_text().length() < 255){ 
+                    context.json(om.writeValueAsString(addedMsg));
+                }
+                //check if message blank 
+                if(addedMsg.getMessage_text().equals("")){
+                    context.status(400);
+                }
+                else{
+                    context.json(om.writeValueAsString(addedMsg));
+                }
             }
         }
         catch(NullPointerException npe){
@@ -162,6 +164,7 @@ public class SocialMediaController {
      * delete message by id
      */
     private void deleteMessageHandler(int mid){
+        //Message message = messageService.getMessageById(mid);
         messageService.deleteMessage(mid);
     }//deleteMessageHandler
     
