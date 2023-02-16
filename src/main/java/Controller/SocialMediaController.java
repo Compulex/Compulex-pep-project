@@ -115,33 +115,26 @@ public class SocialMediaController {
      * handler to add a new message
      */
     private void newMessageHandler(Context context) throws JsonProcessingException{
-        try{
-            ObjectMapper om = new ObjectMapper();
-            Message message = om.readValue(context.body(), Message.class);
-            Message addedMsg = messageService.addMessage(message);
+        ObjectMapper om = new ObjectMapper();
+        Message message = om.readValue(context.body(), Message.class);
+        Message addedMsg = messageService.addMessage(message);
 
-            if(addedMsg == null){
+        if(addedMsg == null){
+            context.status(400);
+        }
+        else{
+            //message too long
+            if(addedMsg.getMessage_text().length() < 255){ 
+                context.json(om.writeValueAsString(addedMsg));
+            }
+            //check if message blank 
+            if(addedMsg.getMessage_text().equals("")){
                 context.status(400);
             }
             else{
-                //message too long
-                if(addedMsg.getMessage_text().length() < 255){ 
-                    context.json(om.writeValueAsString(addedMsg));
-                }
-                //check if message blank 
-                if(addedMsg.getMessage_text().equals("")){
-                    context.status(400);
-                }
-                else{
-                    context.json(om.writeValueAsString(addedMsg));
-                }
+                context.json(om.writeValueAsString(addedMsg));
             }
         }
-        catch(NullPointerException npe){
-            npe.printStackTrace();
-        }
-        
-        
     }//newMessageHandler
 
     /**
