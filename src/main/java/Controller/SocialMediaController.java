@@ -13,7 +13,7 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 
 /**
- * TODO: You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
+ * You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
  * found in readme.md as well as the test cases. You should
  * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
  */
@@ -114,28 +114,14 @@ public class SocialMediaController {
     private void loginHandler(Context context) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         Account account = om.readValue(context.body(), Account.class);
-        Account checkAcct = accountService.addAccount(account);
-        
-        if(checkAcct == null){
-            context.status(401);
+
+        //check if the registered account matches login
+        if(accountService.loginAccount(newAccount, account)){
+            context.json(om.writeValueAsString(newAccount));
         }
         else{
-            if(checkAcct.equals(accountEmpty)){
-                context.json(om.writeValueAsString(checkAcct));
-            }
-            if(checkAcct.getUsername() != null){
-                context.status(401);
-            }
-            //register account THEN login 
-            if(newAccount != null){
-                context.json(om.writeValueAsString(newAccount));
-            }
-            /*else{
-                context.json(om.writeValueAsString(checkAcct));
-                //context.status(401);
-            }*/
+            context.status(401);
         }
-         
     }//loginHandler
 
     /**

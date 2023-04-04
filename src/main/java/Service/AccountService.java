@@ -3,6 +3,8 @@ package Service;
 import DAO.AccountDAO;
 import Model.Account;
 
+import java.util.Objects;
+
 public class AccountService {
     private AccountDAO accountDAO;
 
@@ -16,7 +18,7 @@ public class AccountService {
 
     /**
      * insert a new account, make sure another account doesn't have same username
-     * @param account
+     * @param account object
      * @return Account 
      */
     public Account addAccount(Account account){
@@ -31,8 +33,29 @@ public class AccountService {
     }//addAccount
 
     /**
+     * check if the registered account object and login account object have matching usernames and passwords
+     * @param regAcct registered account
+     * @param loginAcct logged in account
+     * @return boolean
+     */
+    public boolean loginAccount(Account regAcct, Account loginAcct){
+        boolean loggedIn = false;
+        if(regAcct == null){
+            if(loginAcct.getUsername().equals("") && loginAcct.getPassword().equals("")){
+                loggedIn = false;
+            }
+        }
+        else{
+            loggedIn = Objects.equals(regAcct.getUsername(), loginAcct.getUsername()) &&
+                    Objects.equals(regAcct.getPassword(), loginAcct.getPassword());
+        }
+        return loggedIn;
+    }
+
+
+    /**
      * get account by id
-     * @param account id
+     * @param account_id
      * @return account
      */
     public Account getAccountById(int account_id){
